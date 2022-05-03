@@ -65,8 +65,9 @@ class BlurViewModel(application: Application) : ViewModel() {
 
     class BlurViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return if (modelClass.isAssignableFrom(BlurViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
                 BlurViewModel(application) as T
             } else {
                 throw IllegalArgumentException("Unknown ViewModel class")
