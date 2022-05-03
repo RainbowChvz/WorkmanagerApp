@@ -49,11 +49,15 @@ class BlurViewModel(application: Application) : ViewModel() {
             OneTimeWorkRequest.from(CleanupWorker::class.java)
         )
 
-        val blurRequest = OneTimeWorkRequest.Builder(BlurWorker::class.java)
-            .setInputData(createInputDataForUri())
-            .build()
+        for (i in 0 until blurLevel) {
+            val blurRequest = OneTimeWorkRequest.Builder(BlurWorker::class.java)
 
-        continuation = continuation.then(blurRequest)
+            if (i == 0) {
+                blurRequest.setInputData(createInputDataForUri())
+            }
+
+            continuation = continuation.then(blurRequest.build())
+        }
 
         val saveRequest = OneTimeWorkRequest.Builder(SaveImageToFileWorker::class.java)
             .build()
