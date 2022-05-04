@@ -40,6 +40,7 @@ class BlurActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.goButton.setOnClickListener { viewModel.applyBlur(blurLevel) }
+        binding.cancelButton.setOnClickListener { viewModel.cancelWork() }
         binding.seeFileButton.setOnClickListener {
             viewModel.outputUri?.let { currentUri ->
                 val actionView = Intent(Intent.ACTION_VIEW, currentUri)
